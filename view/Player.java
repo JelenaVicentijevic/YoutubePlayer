@@ -142,7 +142,11 @@ public class Player {
 		frmYoutubePlayer.getContentPane().add(txtrTest);
 
 	}
-
+public static void endPlaying() {
+	txtrTest.setText("No more songs in playlist");
+	push = false;
+	driver.quit();
+}
 	public static void play() {
 		txtrTest.setText("Playlist loading...");
 		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
@@ -164,23 +168,16 @@ public class Player {
 				System.out.println(title);
 				Youtube.duration(driver);
 			} catch (InvalidArgumentException e) {
-				txtrTest.setText("No more songs in playlist");
-				push = false;
-				driver.quit();
+				endPlaying();
 			} catch (NoSuchSessionException e) {
-				txtrTest.setText("No more songs in playlist");
-				push = false;
-				driver.close();
+				endPlaying();
 			} catch (NullPointerException e) {
-				txtrTest.setText("No more songs in playlist");
-				push = false;
-				driver.close();
+				endPlaying();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		push = false;
-		driver.quit();
+		endPlaying();
 	}
 
 }
